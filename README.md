@@ -1,16 +1,82 @@
-# React + Vite
+# 🛍️ FAKESHOP PROJECT
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Questo progetto è un **mini e-commerce** sviluppato con **React**, **Tailwind CSS** e **classnames**.  
+L’obiettivo della **prima fase** è costruire la struttura base dell’applicazione realizzando tutti i componenti fondamentali seguendo fedelmente il design fornito in Figma.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Stack Tecnologico
 
-## React Compiler
+- **React** – libreria principale per la costruzione dell’interfaccia utente
+- **Tailwind CSS** – framework utility-first per la gestione dello stile
+- **classnames** – libreria per una gestione più pulita delle classi CSS condizionali
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ⚙️ Installazione
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Clona il repository e installa le dipendenze:
+
+```bash
+git clone <URL_DEL_REPO>
+cd <NOME_CARTELLA>
+npm install
+```
+
+Avvia il server di sviluppo:
+
+```bash
+npm run dev
+```
+
+## 🧩 Componenti da implementare
+
+All’interno dello starter sono già presenti i file dei seguenti componenti, attualmente vuoti:
+
+- `Header`
+
+- `Shop`
+
+- `CartModal`
+
+- `Cart`
+
+- `Button`
+
+- `Product`
+
+Durante questa fase, dovranno essere sviluppati rispettando il design fornito nel link Figma (vedi sotto).
+
+## 🗂️ Dati e struttura temporanea
+
+Nel percorso:
+
+```bash
+/src/data/products.js
+```
+
+è presente un **dummy di prodotti** che verrà utilizzato per popolare temporaneamente lo shop.
+In una fase successiva, questi dati saranno sostituiti da una **fetch a un’API reale**.
+
+## 🎨 Design
+
+Il design completo del progetto è disponibile su Figma:
+👉 [Link al file Figma](https://www.figma.com/design/qEIgFI7p5PgGbpdVJiQHEg/Fakeshop?node-id=0-1&t=uXtfLWnnLm8wWoXO-1)
+
+## 📁 Struttura del progetto (indicativa)
+
+```bash
+src/
+ ├─ components/
+ │   ├─ Header.jsx
+ │   ├─ Shop.jsx
+ │   ├─ CartModal.jsx
+ │   ├─ Cart.jsx
+ │   ├─ Button.jsx
+ │   └─ Product.jsx
+ ├─ data/
+ │   └─ products.js
+ ├─ App.jsx
+ ├─ index.css
+ └─ main.jsx
+```
