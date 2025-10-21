@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import products from './data/products.json'
 
 function App() {
