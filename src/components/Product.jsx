@@ -2,7 +2,13 @@ function Product({ product, addToCart }) {
   const { id, title, price, image } = product
   return (
     <div id={id} className='product'>
-      <img src={image} alt={title} />
+      <div className='w-full aspect-square mb-6'>
+        <img
+          src={image}
+          alt={title}
+          className='w-full h-full object-contain object-center m-auto'
+        />
+      </div>
       <h2>{title}</h2>
       <p>{price}</p>
       <button

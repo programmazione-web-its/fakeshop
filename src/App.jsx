@@ -64,9 +64,9 @@ function App() {
 
   return (
     <>
-      <Header cart={cart} onUpdateCartQuantity={handleUpdateCartItemQuantity} />
+      <Header cart={cart} />
 
-      <Shop products={DUMMY_PRODUCTS} onAddToCart={handleAddItemToCart} />
+      <Shop products={DUMMY_PRODUCTS} />
       <footer className='bg-secondary  rounded-t-xl mt-20'>
         <div className='container text-primary text-md text-center py-20 '>
           Copyright © {new Date().getFullYear()} - Fakeshop. All right reserved
