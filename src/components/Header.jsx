@@ -5,7 +5,7 @@ import CartModal from './CartModal'
 
 import logo from '../assets/Logo.png'
 
-function Header({ cart }) {
+function Header({ cart, onUpdateCartQuantity }) {
   const [openCart, setOpenCart] = useState(false)
   const cartQuantity = cart.items.length
 
@@ -36,7 +36,7 @@ function Header({ cart }) {
           </span>
         )}
       </button>
-      {openCart && <CartModal actions={modalActions} items={cart.items} />}
+      {openCart && <CartModal actions={modalActions} onUpdateCartQuantity={onUpdateCartQuantity} />}
     </header>
   )
 }

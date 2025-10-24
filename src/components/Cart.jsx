@@ -1,11 +1,19 @@
+import { useContext } from 'react'
+import CartContext from '../store/cart-context'
+
 import { MinusCircleIcon, PlusCircleIcon } from '@phosphor-icons/react'
-export default function Cart({ items, onUpdateQuantity }) {
+export default function Cart({ onUpdateQuantity }) {
+  const { items } = useContext(CartContext)
+  const cartContext = useContext(cartContext)
+
+  console.log("ITEMS CONTEXT", items)
+
   const totalPrice = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   )
   const formattedTotalPrice = `$${totalPrice.toFixed(2)}`
-  console.log(items)
+
   return (
     <div>
       {items.length > 0 ? (

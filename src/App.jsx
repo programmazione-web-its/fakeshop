@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import CartContext from './store/cart-context'
+
 import Header from './components/Header'
 import Shop from './components/Shop'
 
@@ -9,6 +11,7 @@ function App() {
   const [cart, setCart] = useState({ items: [] })
 
   function handleAddItemToCart(id) {
+
     setCart((prevCart) => {
       const updatedItems = [...prevCart.items]
 
@@ -62,16 +65,22 @@ function App() {
     })
   }
 
+  const cartContextValue = {
+    items: []
+  }
+
   return (
     <>
-      <Header cart={cart} />
-
-      <Shop products={DUMMY_PRODUCTS} />
+      <CartContext.Provider value={cartContextValue}>
+        <Header cart={cart} onUpdateCartQuantity={handleUpdateCartItemQuantity} />
+        <Shop products={DUMMY_PRODUCTS} onAddItemToCart={handleAddItemToCart} />
+      </CartContext.Provider>
       <footer className='bg-secondary  rounded-t-xl mt-20'>
         <div className='container text-primary text-md text-center py-20 '>
           Copyright © {new Date().getFullYear()} - Fakeshop. All right reserved
         </div>
       </footer>
+
     </>
   )
 }
