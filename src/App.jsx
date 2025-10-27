@@ -1,21 +1,32 @@
-import { useState } from 'react'
-
-import CartContext from './store/cart-context'
+import { useState, useEffect } from 'react'
 
 import CartContextProvider from './providers/CartContextProvider'
 import Header from './components/Header'
 import Shop from './components/Shop'
 
 
-import DUMMY_PRODUCTS from './data/products.json'
-
 function App() {
+
+  const [products, setProducts] = useState([])
+
+
+
+  useEffect(() => {
+    fetch('https://fakestoreapi.com/products')
+    .then((res) => res.json())
+    .then((json) => {
+      console.log("content is fetching")
+      setProducts(json)
+    })
+  }, [])
+
 
   return (
     <>
       <CartContextProvider>
         <Header />
-        <Shop products={DUMMY_PRODUCTS} />
+        <Shop products={products} />
+        1 2 3 4
       </CartContextProvider>
       <footer className='bg-secondary  rounded-t-xl mt-20'>
         <div className='container text-primary text-md text-center py-20 '>
