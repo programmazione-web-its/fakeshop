@@ -2,11 +2,9 @@ import { useContext } from 'react'
 import CartContext from '../store/cart-context'
 
 import { MinusCircleIcon, PlusCircleIcon } from '@phosphor-icons/react'
-export default function Cart({ onUpdateQuantity }) {
-  const { items } = useContext(CartContext)
-  const cartContext = useContext(cartContext)
-
-  console.log("ITEMS CONTEXT", items)
+export default function Cart() {
+  const { items, changeItemQuantity } = useContext(CartContext)
+  console.log('ITMES', items)
 
   const totalPrice = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -32,11 +30,11 @@ export default function Cart({ onUpdateQuantity }) {
                 </div>
                 <div className='col-span-3'> {item.title}</div>
                 <div className='col-span-2 flex items-center justify-end gap-2'>
-                  <button onClick={() => onUpdateQuantity(item.id, -1)}>
+                  <button onClick={() => changeItemQuantity(item.id, -1)}>
                     <MinusCircleIcon size={24} />
                   </button>
                   {item.quantity}
-                  <button onClick={() => onUpdateQuantity(item.id, 1)}>
+                  <button onClick={() => changeItemQuantity(item.id, 1)}>
                     <PlusCircleIcon size={24} />
                   </button>
                 </div>

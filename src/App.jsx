@@ -11,7 +11,6 @@ function App() {
   const [cart, setCart] = useState({ items: [] })
 
   function handleAddItemToCart(id) {
-
     setCart((prevCart) => {
       const updatedItems = [...prevCart.items]
 
@@ -66,21 +65,22 @@ function App() {
   }
 
   const cartContextValue = {
-    items: []
+    items: cart.items,
+    addItemToCart: handleAddItemToCart,
+    changeItemQuantity: handleUpdateCartItemQuantity,
   }
 
   return (
     <>
       <CartContext.Provider value={cartContextValue}>
-        <Header cart={cart} onUpdateCartQuantity={handleUpdateCartItemQuantity} />
-        <Shop products={DUMMY_PRODUCTS} onAddItemToCart={handleAddItemToCart} />
+        <Header cart={cart} />
+        <Shop products={DUMMY_PRODUCTS} />
       </CartContext.Provider>
       <footer className='bg-secondary  rounded-t-xl mt-20'>
         <div className='container text-primary text-md text-center py-20 '>
           Copyright © {new Date().getFullYear()} - Fakeshop. All right reserved
         </div>
       </footer>
-
     </>
   )
 }
