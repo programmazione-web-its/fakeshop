@@ -4,7 +4,7 @@ import CartContext from '../store/cart-context'
 import { MinusCircleIcon, PlusCircleIcon } from '@phosphor-icons/react'
 export default function Cart() {
   const { items, changeItemQuantity } = useContext(CartContext)
-  console.log('ITMES', items)
+ 
 
   const totalPrice = items.reduce(
     (acc, item) => acc + item.price * item.quantity,

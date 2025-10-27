@@ -1,13 +1,18 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+
+import CartContext from '../store/cart-context'
+
 import { ShoppingCartSimpleIcon } from '@phosphor-icons/react'
 
 import CartModal from './CartModal'
-
 import logo from '../assets/Logo.png'
 
-function Header({ cart }) {
+function Header() {
   const [openCart, setOpenCart] = useState(false)
-  const cartQuantity = cart.items.length
+
+  const { items } = useContext(CartContext)
+
+  const cartQuantity = items.length
 
   let modalActions = <button onClick={() => setOpenCart(false)}>Close</button>
 
