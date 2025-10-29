@@ -14,13 +14,27 @@ function Header() {
 
   const cartQuantity = items.length
 
-  let modalActions = <button onClick={() => setOpenCart(false)}>Close</button>
+  let modalActions = (
+    <button
+      className='bg-secondary px-2 py-0.5 rounded-md hover:opacity-70 cursor-pointer transition-colors '
+      onClick={() => setOpenCart(false)}
+    >
+      Go back to shopping
+    </button>
+  )
 
   if (cartQuantity > 0) {
     modalActions = (
       <>
-        <button onClick={() => setOpenCart(false)}>Close</button>
-        <button>Checkout</button>
+        <button
+          className='bg-secondary px-2 py-0.5 rounded-md hover:opacity-70 cursor-pointer transition-colors'
+          onClick={() => console.log('Update cart')}
+        >
+          Update cart
+        </button>
+        <button className='bg-primary px-2 py-0.5 rounded-md hover:opacity-70 cursor-pointer transition-colors text-white'>
+          Checkout
+        </button>
       </>
     )
   }
@@ -42,7 +56,11 @@ function Header() {
         )}
       </button>
       {openCart && (
-        <CartModal title='Your shopping cart' actions={modalActions} />
+        <CartModal
+          title='Your shopping cart'
+          actions={modalActions}
+          onClose={() => setOpenCart(false)}
+        />
       )}
     </header>
   )
