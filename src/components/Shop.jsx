@@ -1,5 +1,11 @@
+import { useContext } from 'react'
+import ProductsContext from '../store/products-context'
+
 import Product from './Product'
-export default function Shop({ products, isLoading, error }) {
+export default function Shop() {
+
+  const { products, isLoading, error } = useContext(ProductsContext)
+
   return (
     <>
       {isLoading && (

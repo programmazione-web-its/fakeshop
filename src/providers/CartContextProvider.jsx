@@ -1,9 +1,13 @@
-import  { useState } from 'react'
+import  { useState, useContext } from 'react'
 import CartContext from "../store/cart-context"
+import ProductsContext from '../store/products-context'
+import ProductsContextProvider from './ProductsContextProvider'
 
-import DUMMY_PRODUCTS from '../data/products.json'
 
 export default function CartContextProvider({children}) {
+
+  const { products } = useContext(ProductsContext)
+
   const [cart, setCart] = useState({ items: [] })
 
   function handleAddItemToCart(id) {
@@ -22,7 +26,7 @@ export default function CartContextProvider({children}) {
         }
         updatedItems[existingCartItemIndex] = updatedItem
       } else {
-        const product = DUMMY_PRODUCTS.find((product) => product.id === id)
+        const product = products.find((product) => product.id === id)
         updatedItems.push({
           ...product,
           quantity: 1,
