@@ -4,7 +4,6 @@ import CartContext from '../store/cart-context'
 import { MinusCircleIcon, PlusCircleIcon } from '@phosphor-icons/react'
 export default function Cart() {
   const { items, changeItemQuantity } = useContext(CartContext)
- 
 
   const totalPrice = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -13,7 +12,7 @@ export default function Cart() {
   const formattedTotalPrice = `$${totalPrice.toFixed(2)}`
 
   return (
-    <div>
+    <div className='w-full'>
       {items.length > 0 ? (
         <>
           <ul>
@@ -41,12 +40,14 @@ export default function Cart() {
               </li>
             ))}
           </ul>
-          <p className='mt-8 '>
+          <p className='my-8 text-right'>
             Cart Total: <strong>{formattedTotalPrice}</strong>
           </p>
         </>
       ) : (
-        <p>No items found</p>
+        <div className='flex items-center justify-center text-center flex-col w-full h-full'>
+          <p className='py-7 text-center mx-auto'>No items found</p>
+        </div>
       )}
     </div>
   )
