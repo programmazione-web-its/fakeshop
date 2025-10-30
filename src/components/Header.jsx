@@ -1,4 +1,5 @@
 import { useState, useContext } from 'react'
+import Nav from './Nav'
 
 import CartContext from '../store/cart-context'
 
@@ -42,6 +43,7 @@ function Header() {
   return (
     <header className='flex items-center justify-between container'>
       <img src={logo} />
+      <Nav className='ml-auto px-5' />
       <button
         className='text-white bg-primary px-3 py-1 rounded-md relative'
         onClick={() => setOpenCart(true)}
@@ -55,6 +57,7 @@ function Header() {
           </span>
         )}
       </button>
+
       {openCart && (
         <CartModal
           title='Your shopping cart'
