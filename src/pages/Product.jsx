@@ -1,8 +1,9 @@
 import Layout from '../layouts/Layout'
-export default function About() {
+
+export default function Product() {
   return (
     <Layout>
-      <h1>About</h1>
+      <h1>Single product page</h1>
     </Layout>
   )
 }

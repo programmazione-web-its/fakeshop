@@ -1,17 +1,18 @@
-import { useState, useContext } from 'react'
+import { useContext, useState } from 'react'
 import Nav from './Nav'
 
-import CartContext from '../store/cart-context'
+import ShopContext from '../store/shop-context'
 
 import { ShoppingCartSimpleIcon } from '@phosphor-icons/react'
 
-import CartModal from './CartModal'
 import logo from '../assets/Logo.png'
+import CartModal from './CartModal'
 
 function Header() {
   const [openCart, setOpenCart] = useState(false)
 
-  const { items } = useContext(CartContext)
+  const { cartData } = useContext(ShopContext)
+  const { items } = cartData || {}
 
   const cartQuantity = items.length
 
@@ -39,6 +40,13 @@ function Header() {
       </>
     )
   }
+
+  /* 
+  const mainRoute = siteRoutes.find((r) => r.path === '/')
+  const childRoutes = mainRoute?.children ?? []
+  const topRoutes = siteRoutes.filter((r) => r.showInNav && r.path !== '/')
+  const navItems = [...childRoutes.filter((r) => r.showInNav), ...topRoutes]
+  */
 
   return (
     <header className='flex items-center justify-between container'>

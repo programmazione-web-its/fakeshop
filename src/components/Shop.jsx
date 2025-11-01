@@ -1,10 +1,10 @@
 import { useContext } from 'react'
-import ProductsContext from '../store/products-context'
+import ShopContext from '../store/shop-context'
 
 import Product from './Product'
 export default function Shop() {
-
-  const { products, isLoading, error } = useContext(ProductsContext)
+  const { productsData } = useContext(ShopContext)
+  const { products, isLoading, error } = productsData || {}
 
   return (
     <>
@@ -16,9 +16,9 @@ export default function Shop() {
           ❌ {error.message}
         </p>
       )}
-      {products && (
+      {products?.products && (
         <div className='grid grid-cols-3 gap-8 container my-10'>
-          {products?.map((el) => (
+          {products.products?.map((el) => (
             <Product key={el.id} product={el} />
           ))}
         </div>
