@@ -1,17 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 
 import ShopContext from '../store/shop-context'
 
-export default function ShopContextProvider({ children }) {
-  const [products, setProducts] = useState([])
-  const [error, setError] = useState()
-  const [isLoading, setIsLoading] = useState(false)
-  const [cart, setCart] = useState({ items: [] })
-
-  function handleAddItemToCart(id) {
-    setCart((prevCart) => {
-      const updatedItems = [...prevCart.items]
-
+function cartReducer(state, action) {
+  if (action.type === 'ADD_ITEM') {
+      const updatedItems = [...state.items]
+      const {id, products} = action.payload
       const existingCartItemIndex = updatedItems.findIndex(
         (cartItem) => cartItem.id === id
       )
@@ -32,14 +26,14 @@ export default function ShopContextProvider({ children }) {
       }
 
       return {
+        ...state,
         items: updatedItems,
       }
-    })
   }
 
-  function handleUpdateCartItemQuantity(productId, amount) {
-    setCart((prevCart) => {
-      const updatedItems = [...prevCart.items]
+  if (action.type === 'UPDT_QTY') {
+      const updatedItems = [...state.items]
+      const {productId, amount} = action.payload
       const updatedItemIndex = updatedItems.findIndex(
         (item) => item.id === productId
       )
@@ -57,9 +51,27 @@ export default function ShopContextProvider({ children }) {
       }
 
       return {
+        ...state,
         items: updatedItems,
       }
-    })
+  }
+
+  return state
+}
+
+export default function ShopContextProvider({ children }) {
+
+  const [products, setProducts] = useState([])
+  const [error, setError] = useState()
+  const [isLoading, setIsLoading] = useState(false)
+  const [cart, cartDispatch] = useReducer(cartReducer, {items: []})
+
+  function handleAddItemToCart(id) {
+    cartDispatch({type: 'ADD_ITEM', payload: {id, products}})
+  }
+
+  function handleUpdateCartItemQuantity(productId, amount) {
+   cartDispatch({type: 'UPDT_QTY', payload: {productId, amount}})
   }
 
   useEffect(() => {
