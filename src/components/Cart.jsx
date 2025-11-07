@@ -1,10 +1,13 @@
-import { useContext } from 'react'
-import ShopContext from '../store/shop-context'
+
+import { useSelector, useDispatch } from 'react-redux'
+import { updateItemQty } from '../store/cart-slice'
 
 import { MinusCircleIcon, PlusCircleIcon } from '@phosphor-icons/react'
 export default function Cart() {
-  const { cartData } = useContext(ShopContext)
-  const { items, changeItemQuantity } = cartData || {}
+  
+  const { items } = useSelector(state => state.cart)
+
+  const dispatch = useDispatch()
 
   const totalPrice = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -34,11 +37,11 @@ export default function Cart() {
                   <p className='block'>€ {item.price.toFixed(2)}</p>
                 </div>
                 <div className='col-span-2 flex items-center justify-end gap-2'>
-                  <button onClick={() => changeItemQuantity(item.id, -1)}>
+                  <button onClick={() => dispatch(updateItemQty({productId: item.id, amount: -1}))}>
                     <MinusCircleIcon size={24} />
                   </button>
                   {item.quantity}
-                  <button onClick={() => changeItemQuantity(item.id, 1)}>
+                  <button onClick={() => dispatch(updateItemQty({productId: item.id, amount: 1}))}>
                     <PlusCircleIcon size={24} />
                   </button>
                 </div>

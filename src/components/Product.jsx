@@ -1,10 +1,15 @@
-import { useContext } from 'react'
-import ShopContext from '../store/shop-context'
+import { useDispatch, useSelector } from "react-redux"
+
+import { addItem } from "../store/cart-slice"
+
 
 function Product({ product }) {
   const { id, title, price, thumbnail, description } = product
-  const { cartData } = useContext(ShopContext)
-  const { addItemToCart } = cartData || {}
+
+  const {products} = useSelector(state  => state.products)
+
+  const dispatch = useDispatch()
+
   return (
     <div id={id} className='product h-full flex flex-col relative'>
       <div className='w-full h-90 p-6 bg-gradient-to-b from-[#f9f9f9] to-[#f1f1f1] flex items-center justify-center'>
@@ -24,7 +29,7 @@ function Product({ product }) {
         <p className='text-white mb-8 line-clamp-6'>{description}</p>
         <button
           className='bg-accent text-primary uppercase w-full cursor-pointer rounded-md py-1 px-2 text-center mt-auto mb-3'
-          onClick={() => addItemToCart(id)}
+          onClick={() => dispatch(addItem({id: id, products}))}
         >
           Add to cart
         </button>
