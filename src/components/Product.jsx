@@ -1,14 +1,33 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from 'react-redux'
 
-import { addItem } from "../store/cart-slice"
-
+import { setError, setLoading, setSuccess } from '../store/cart-slice'
 
 function Product({ product }) {
   const { id, title, price, thumbnail, description } = product
 
-  const {products} = useSelector(state  => state.products)
-
   const dispatch = useDispatch()
+
+  const updateCart = async () => {
+    dispatch(setLoading())
+    try {
+      const res = await fetch('https://dummyjson.com/carts/1', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          merge: true, // this will include existing products in the cart
+          products: [{ id: product.id, quantity: 1 }],
+        }),
+      })
+      if (!res.ok) {
+        throw new Error('Something went wrong')
+      }
+      const data = await res.json()
+
+      dispatch(setSuccess(data.products))
+    } catch (err) {
+      dispatch(setError(err.message))
+    }
+  }
 
   return (
     <div id={id} className='product h-full flex flex-col relative'>
@@ -29,7 +48,7 @@ function Product({ product }) {
         <p className='text-white mb-8 line-clamp-6'>{description}</p>
         <button
           className='bg-accent text-primary uppercase w-full cursor-pointer rounded-md py-1 px-2 text-center mt-auto mb-3'
-          onClick={() => dispatch(addItem({id: id, products}))}
+          onClick={() => updateCart()}
         >
           Add to cart
         </button>
