@@ -1,33 +1,25 @@
-import { useDispatch } from 'react-redux'
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { useUpdateCartMutation } from "../store/api-slice"
+import { addItem } from "../store/cart-slice"
 
-import { setError, setLoading, setSuccess } from '../store/cart-slice'
+
 
 function Product({ product }) {
   const { id, title, price, thumbnail, description } = product
-
   const dispatch = useDispatch()
 
-  const updateCart = async () => {
-    dispatch(setLoading())
-    try {
-      const res = await fetch('https://dummyjson.com/carts/1', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          merge: true, // this will include existing products in the cart
-          products: [{ id: product.id, quantity: 1 }],
-        }),
-      })
-      if (!res.ok) {
-        throw new Error('Something went wrong')
-      }
-      const data = await res.json()
+  const [updateCart, {isLoading, error, data}] = useUpdateCartMutation()
 
-      dispatch(setSuccess(data.products))
-    } catch (err) {
-      dispatch(setError(err.message))
-    }
+  const addToCart = async () => {
+    await(updateCart(product.id))
+    console.log("data", data)
   }
+
+  useEffect(() => {
+    if (!data) return
+    dispatch(addItem(data.products))
+  }, [data] )
 
   return (
     <div id={id} className='product h-full flex flex-col relative'>
@@ -48,7 +40,7 @@ function Product({ product }) {
         <p className='text-white mb-8 line-clamp-6'>{description}</p>
         <button
           className='bg-accent text-primary uppercase w-full cursor-pointer rounded-md py-1 px-2 text-center mt-auto mb-3'
-          onClick={() => updateCart()}
+          onClick={() => addToCart()}
         >
           Add to cart
         </button>

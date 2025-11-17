@@ -60,11 +60,11 @@ function cartReducer(state, action) {
 }
 
 export default function ShopContextProvider({ children }) {
-
+  const initialState = {items: []}
   const [products, setProducts] = useState([])
   const [error, setError] = useState()
   const [isLoading, setIsLoading] = useState(false)
-  const [cart, cartDispatch] = useReducer(cartReducer, {items: []})
+  const [cart, cartDispatch] = useReducer(cartReducer, initialState)
 
   function handleAddItemToCart(id) {
     cartDispatch({type: 'ADD_ITEM', payload: {id, products}})
