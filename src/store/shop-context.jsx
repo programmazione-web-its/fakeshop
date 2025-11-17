@@ -5,6 +5,7 @@ const ShopContext = createContext({
     products: {},
     isLoading: false,
     error: null,
+  
   },
   cartData: {
     items: [],
