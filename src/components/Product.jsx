@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import ShopContext from '../store/shop-context'
 
 function Product({ product }) {
@@ -6,7 +7,11 @@ function Product({ product }) {
   const { cartData } = useContext(ShopContext)
   const { addItemToCart } = cartData || {}
   return (
-    <div id={id} className='product h-full flex flex-col relative'>
+    <Link
+      to={`product/${id}`}
+      id={id}
+      className='product h-full flex flex-col relative'
+    >
       <div className='w-full h-90 p-6 bg-gradient-to-b from-[#f9f9f9] to-[#f1f1f1] flex items-center justify-center'>
         <img
           src={thumbnail}
@@ -29,7 +34,7 @@ function Product({ product }) {
           Add to cart
         </button>
       </div>
-    </div>
+    </Link>
   )
 }
 

@@ -1,11 +1,32 @@
-import { useContext } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import ShopContext from '../store/shop-context'
 
 import Product from './Product'
 export default function Shop() {
-  const { productsData } = useContext(ShopContext)
+  const [products, setProducts] = useState()
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState()
 
-  const { products, isLoading, error } = productsData || {}
+  useEffect(() => {
+    const getProduct = async () => {
+      setIsLoading(true)
+      try {
+        const response = await fetch(`https://dummyjson.com/products`)
+        if (!response.ok) {
+          throw new Error('Failed to fetch')
+        }
+        const data = await response.json()
+        setProducts(data.products)
+        setError()
+      } catch (err) {
+        console.log('err', err)
+        setError(err.message)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    getProduct()
+  }, [])
 
   return (
     <>
@@ -17,9 +38,9 @@ export default function Shop() {
           ❌ {error.message}
         </p>
       )}
-      {products?.products && (
+      {products && (
         <div className='grid grid-cols-3 gap-8 container my-10'>
-          {products.products?.map((el) => (
+          {products?.map((el) => (
             <Product key={el.id} product={el} />
           ))}
         </div>
