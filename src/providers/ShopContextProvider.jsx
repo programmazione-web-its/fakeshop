@@ -59,23 +59,11 @@ function cartReducer(state, action) {
   return state
 }
 
-function productReducer(state, action) {
-  if (action.type === 'GET_PRODUCTS') {
-    return { ...state, products: action.payload }
-  }
-}
-
 export default function ShopContextProvider({ children }) {
-
-
   const [error, setError] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const [cart, cartDispatch] = useReducer(cartReducer, { items: [] })
-  const [products, productsDispatch] = useReducer(productReducer, {
-    products: {},
-    isLoading: false,
-    error: null,
-  })
+  const [products, setProducts] = useState()
 
   function handleAddItemToCart(id) {
     cartDispatch({ type: 'ADD_ITEM', payload: { id, products } })
@@ -85,29 +73,28 @@ export default function ShopContextProvider({ children }) {
     cartDispatch({ type: 'UPDT_QTY', payload: { productId, amount } })
   }
 
- async function getProducts(offset = 0) {
+  async function getProducts() {
     setIsLoading(true)
-      try {
-        const response = await fetch(`https://dummyjson.com/products?skip=${offset}`)
-        if (!response.ok) {
-          throw new Error('Failed to fetch products')
-        }
-        const data = await response.json()
-        productsDispatch({type: 'GET_PRODUCTS', payload: data})
-      } catch (error) {
-        setError(error)
-      } finally {
-        setIsLoading(false)
+    try {
+      const response = await fetch(`https://dummyjson.com/products?`)
+      if (!response.ok) {
+        throw new Error('Failed to fetch products')
       }
+      const data = await response.json()
+      setProducts(data)
+    } catch (error) {
+      setError(error)
+    } finally {
+      setIsLoading(false)
     }
- 
+  }
 
   useEffect(() => {
     getProducts()
   }, [])
 
   const shopCtx = {
-    productsData: { products, isLoading, error , getProducts},
+    productsData: { products, isLoading, error },
     cartData: {
       items: cart.items,
       addItemToCart: handleAddItemToCart,
