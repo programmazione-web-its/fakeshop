@@ -4,6 +4,8 @@ import About from './pages/About'
 import Account from './pages/Account'
 import NotFound from './pages/NotFound'
 import SingleProduct from './pages/SingleProduct'
+import Login from './pages/Login'
+
 const siteRoutes = [
   {
     path: '/',
@@ -22,10 +24,15 @@ const siteRoutes = [
         title: 'About',
       },
       {
+        path: 'login',
+        Component: Login,
+        showInNav: true,
+        title: 'Login',
+      },
+      {
         path: 'account',
         Component: Account,
-        showInNav: true,
-        title: 'Account',
+        showInNav: false,
       },
       {
         path: 'product/:id',
