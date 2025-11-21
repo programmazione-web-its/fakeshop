@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate, Form } from 'react-router'
 
 import { EyeIcon, EyeSlashIcon } from '@phosphor-icons/react'
 
@@ -59,11 +59,10 @@ export default function Login() {
   return (
     <div className='container mx-auto'>
       <div className='lg:w-lg mx-auto'>
-        {' '}
-        <form
+        <Form
           className=' flex flex-col gap-3 bg-gray-100 p-6 my-3 rounded-md'
           noValidate
-          onSubmit={handleSubmit}
+          method='post'
         >
           <input
             className='bg-white border border-primary w-full px-2'
@@ -88,7 +87,7 @@ export default function Login() {
           <button className='bg-primary text-white rounded-md' type='submit'>
             Login
           </button>
-        </form>
+        </Form>
         {error && <div className='bg-red-100 text-red-500'>{error}</div>}
         {user && (
           <div className='bg-green-100 text-green-500'>

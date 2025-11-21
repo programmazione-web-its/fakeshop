@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useLoaderData } from 'react-router-dom'
 
 export default function SingleProduct() {
-  const { id } = useParams()
-  const [product, setProduct] = useState()
+
+  const product = useLoaderData()
+
 
   return (
     product && (
